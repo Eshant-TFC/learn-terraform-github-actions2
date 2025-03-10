@@ -1,6 +1,3 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 terraform {
   required_providers {
     aws = {
@@ -29,24 +26,10 @@ provider "aws" {
 
 resource "random_pet" "sg" {}
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
+# Use a known AMI ID instead of querying dynamically
 resource "aws_instance" "web" {
-  ami                    = data.aws_ami.ubuntu.id
+  # Replace with your actual AMI ID
+  ami                    = "ami-00c257e12d6828491"  # Replace with your AMI ID
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
 
@@ -68,6 +51,7 @@ resource "aws_security_group" "web-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   // connectivity to ubuntu mirrors is required to run `apt-get update` and `apt-get install apache2`
   egress {
     from_port   = 0
