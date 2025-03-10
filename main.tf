@@ -28,7 +28,7 @@ resource "random_pet" "sg" {}
 
 # Use a known AMI ID instead of querying dynamically
 resource "aws_instance" "web" {
-  ami                    = "ami-1234567890abcdef0"  # Replace with your AMI ID
+  ami                    = "ami-00c257e12d6828491"  # Replace with your AMI ID
   instance_type          = "t2.micro"
  vpc_security_group_ids = ["sg-009e46413f6fd069e"]  # Reference the existing SG
 
