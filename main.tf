@@ -21,17 +21,17 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-west-1"
 }
 
 resource "random_pet" "sg" {}
 
 # Use a known AMI ID instead of querying dynamically
 resource "aws_instance" "web" {
-  ami                    = "ami-00c257e12d6828491"  # Replace with your AMI ID
+  ami                    = "ami-07d2649d67dbe8900"  # Replace with your AMI ID
   instance_type          = "t2.micro"
- vpc_security_group_ids = ["sg-09618e2ddc6544d13"]  # Reference the existing SG
- subnet_id              = "subnet-02d10704720c0cd8d"
+ vpc_security_group_ids = ["sg-08e1804bd8b1d1818"]  # Reference the existing SG
+ subnet_id              = "subnet-0a38b53e9d845f437"
 
   user_data = <<-EOF
               #!/bin/bash
