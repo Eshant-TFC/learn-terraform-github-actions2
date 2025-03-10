@@ -30,7 +30,7 @@ resource "random_pet" "sg" {}
 resource "aws_instance" "web" {
   ami                    = "ami-00c257e12d6828491"  # Replace with your AMI ID
   instance_type          = "t2.micro"
- vpc_security_group_ids = ["sg-09618e2ddc6544d13"]  # Reference the existing SG
+ vpc_security_group_ids = ["sg-09618e2ddc6544d13"]  
  subnet_id              = "subnet-02d10704720c0cd8d"
 
   user_data = <<-EOF
