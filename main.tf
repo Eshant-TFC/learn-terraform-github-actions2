@@ -28,10 +28,10 @@ resource "random_pet" "sg" {}
 
 # Use a known AMI ID instead of querying dynamically
 resource "aws_instance" "web" {
-  ami                    = "ami-07d2649d67dbe8900"  # Replace with your AMI ID
+  ami                    = "ami-00c257e12d6828491"  # Replace with your AMI ID
   instance_type          = "t2.micro"
- vpc_security_group_ids = ["sg-08e1804bd8b1d1818"]  # Reference the existing SG
- subnet_id              = "subnet-0a38b53e9d845f437"
+ vpc_security_group_ids = ["sg-009e46413f6fd069e"]  # Reference the existing SG
+ subnet_id              = "subnet-023fe123e7f84d1e4"
 
   user_data = <<-EOF
               #!/bin/bash
