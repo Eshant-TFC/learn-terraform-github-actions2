@@ -28,10 +28,9 @@ resource "random_pet" "sg" {}
 
 # Use a known AMI ID instead of querying dynamically
 resource "aws_instance" "web" {
-  # Replace with your actual AMI ID
-  ami                    = "ami-00c257e12d6828491"  # Replace with your AMI ID
+  ami                    = "ami-1234567890abcdef0"  # Replace with your AMI ID
   instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
+  vpc_security_group_ids = [data.aws_security_group.existing_sg.id]  # Reference the existing SG
 
   user_data = <<-EOF
               #!/bin/bash
@@ -43,22 +42,10 @@ resource "aws_instance" "web" {
               EOF
 }
 
-resource "aws_security_group" "web-sg" {
-  name = "${random_pet.sg.id}-sg"
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  // connectivity to ubuntu mirrors is required to run `apt-get update` and `apt-get install apache2`
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+# Data source to reference an existing Security Group
+data "aws_security_group" "existing_sg" {
+  # Replace with the actual Security Group ID or name
+  id = "sg-009e46413f6fd069e"  # Example: Use your existing SG ID
 }
 
 output "web-address" {
